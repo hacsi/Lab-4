@@ -1,7 +1,7 @@
 /*	Author: jchen337
  *  Partner(s) Name: Matthew Fernandes
  *	Lab Section:
- *	Assignment: Lab #4  Exercise #2
+ *	Assignment: Lab #4  Exercise #1
  *	Exercise Description: [optional - include for your own benefit]
  *
  *	I acknowledge all content contained herein, excluding template or example
@@ -12,80 +12,57 @@
 #include "simAVRHeader.h"
 #endif
 
-enum States {Initial, Wait, Inc, Dec, Reset} next_state;
+enum LED_States {LED_Start, LED0, LED1} next_state;
 
-void Tick() { 
+void Tick_LED() { 
 	switch (next_state) { //Transitions
-		case Initial:
-			next_state = Initial;
+		case LED_Start:
+			next_state = LED_Start;
 			break;
-		case Reset:
-		case Inc:
-		case Dec:
-		case Wait:
+
+		case LED0:
 			if (PINA & 0x01) {
-				next_state = Inc;
-				break;
-			}
-			else if (PINA & 0x02) {
-				next_state = Dec;
-				break;
-			}
-			else if (PINA & 0x03) {
-				next_state = Reset;
-				break;
+				next_state = LED1;
 			}
 			else {
-				next_state = Wait;
-				break;
+				next_state = LED0;
 			}
-			
+			break;
+
+		case LED1:
+			if (PINA & 0x01) {
+				next_state = LED0;
+			}
+			else {
+				next_state = LED1;
+			}
+			break;
 	}
 	switch (next_state) { //Actions
-		case Initial:
-			PORTC = 0x07;
-			next_state = Wait;
+		case LED_Start:
+			PORTB = 0x01;
+			next_state = LED0;
 			break;
-		case Wait:
-			next_state = Wait;
+		case LED0:
+			PORTB = 0x01;
+			next_state = LED0;
 			break;
-		case Inc:
-			if (PORTC >= 9) {
-				PORTC = 0x09;
-				next_state = Wait;
-				break;
-			}
-			else {
-				PORTC = PORTC + 1;
-				next_state = Wait;
-				break;
-			}
-		case Dec:
-			if (PORTC <= 0) {
-				PORTC = 0x00;
-				next_state = Wait;
-				break;
-			}
-			else {
-				PORTC = PORTC - 1;
-				next_state = Wait;
-				break;
-			}
-		case Reset:
-			PORTC = 0x00;
-			next_state = Wait;
+		case LED1:
+			PORTB = 0x02;
+			next_state = LED1;
+			break;
 	}
 }
 
 int main(void) {
     /* Insert DDR and PORT initializations */
 	DDRA = 0x00; PORTA = 0xFF;
-	DDRC = 0xFF; PORTC = 0x00;
-	next_state = Initial;
+	DDRB = 0xFF; PORTB = 0x00;
+	next_state = LED_Start;
 
     /* Insert your solution below */
     while (1) {
-	Tick();
+	Tick_LED();
     }
     return 1;
 }

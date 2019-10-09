@@ -26,16 +26,77 @@
 echo ======================================================\n
 echo Running all tests..."\n\n
 
-test "PINA: 0x01, 0x00 => PORTC: 0x08, next_state: 2"
-set next_state = Initial
-setPINA 0x01
-continue 1
+test "don't press anything => PORTB: 0x01, next_state: 1"
+set next_state = LED_Start
 setPINA 0x00
 continue 3
-expectPORTC 0x08
+expectPORTB 0x01
 expect next_state 1
 checkResult
 
+# Test from init: !A0, A0 => PORTB: 0x02
+test "press once => PORTB: 0x02, next_state: 2"
+set next_state = LED_Start
+setPINA 0x00
+continue 1
+setPINA 0x01
+continue 1
+expectPORTB 0x02
+expect next_state 2
+checkResult
+
+# Test from init: !A0, A0, !A0, A0 => PORTB: 0x01
+test "press twice => PORTB: 0x01, next_state: 1"
+set next_state = LED_Start
+setPINA 0x00
+continue 1
+setPINA 0x01
+continue 1
+setPINA 0x00
+continue 1
+setPINA 0x01
+continue 1
+expectPORTB 0x01
+expect next_state 1
+checkResult
+
+test "press 5 times => PORTB: 0x02, next_state: 1"
+set next_state = LED_Start
+setPINA 0x00
+continue 1
+setPINA 0x01
+continue 1
+setPINA 0x00
+continue 1
+setPINA 0x01
+continue 1
+setPINA 0x00
+continue 1
+setPINA 0x01
+continue 1
+setPINA 0x00
+continue 1
+setPINA 0x01
+continue 1
+setPINA 0x00
+continue 1
+setPINA 0x01
+continue 1
+expectPORTB 0x02
+expect next_state 2
+checkResult
+
+test "press once, button let go => PORTB: 0x02, next_state: 1"
+set next_state = LED_Start
+setPINA 0x00
+continue 1
+setPINA 0x01
+continue 1
+setPINA 0x00
+continue 4
+expectPORTB 0x02
+expect next_state 2
+checkResult
 
 
 # Report on how many tests passed/tests ran
