@@ -38,7 +38,7 @@ expect next_state 2
 checkResult
 
 # Test from init: !A0, A0, !A0, A0 => PORTB: 0x01
-test "PINA: 0x00, 0x01, 0x00 , 0x01=> PORTB: 0x01, next_state: 1"
+test "press twice, next_state: 1"
 set next_state = LED_Start
 setPINA 0x00
 continue 1
@@ -51,6 +51,47 @@ continue 1
 expectPORTB 0x01
 expect next_state 1
 checkResult
+
+test "press 5 times, next_state: 1"
+set next_state = LED_Start
+setPINA 0x00
+continue 1
+setPINA 0x01
+continue 1
+setPINA 0x00
+continue 1
+setPINA 0x01
+continue 1
+setPINA 0x00
+continue 1
+setPINA 0x01
+continue 1
+setPINA 0x00
+continue 1
+setPINA 0x01
+continue 1
+setPINA 0x00
+continue 1
+setPINA 0x01
+continue 1
+expectPORTB 0x02
+expect next_state 2
+checkResult
+
+test "press once, button let go, next_state: 1"
+set next_state = LED_Start
+setPINA 0x00
+continue 1
+setPINA 0x01
+continue 1
+setPINA 0x00
+continue 1
+setPINA 0x00
+continue 1
+expectPORTB 0x02
+expect next_state 2
+checkResult
+
 
 # Report on how many tests passed/tests ran
 set $passed=$tests-$failed
