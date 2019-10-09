@@ -26,78 +26,61 @@
 echo ======================================================\n
 echo Running all tests..."\n\n
 
-test "don't press anything => PORTB: 0x01, next_state: 1"
-set next_state = LED_Start
+test "inc once => PORTC: 0x08"
+set next_state = Initial
+setPINA 0x01
+continue 2
+expectPORTC 0x08
+checkResult
+
+test "hold inc => PORTC: 0x09"
+set next_state = Initial
+setPINA 0x01
+continue 5
+expectPORTC 0x09
+checkResult
+
+test "dec once => PORTC: 0x06"
+set next_state = Initial
+setPINA 0x02
+continue 2
+expectPORTC 0x06
+checkResult
+
+test "hold dec => PORTC: 0x00"
+set next_state = Initial
+setPINA 0x02
+continue 10
+expectPORTC 0x00
+checkResult
+
+test "inc, hold => PORTC: 0x08, state: Wait"
+set next_state = Initial
+setPINA 0x01
+continue 2
 setPINA 0x00
+continue 10
+expectPORTC 0x08
+expect next_state Wait
+checkResult
+
+test "dec, hold => PORTC: 0x06, state: Wait"
+set next_state = Initial
+setPINA 0x02
+continue 2
+setPINA 0x00
+continue 10
+expectPORTC 0x06
+expect next_state Wait
+checkResult
+
+test "press both => PORTC: 0x00"
+set next_state = Initial
+setPINA 0x03
 continue 3
-expectPORTB 0x01
-expect next_state 1
+expectPORTC 0x00
+expect next_state Wait
 checkResult
-
-# Test from init: !A0, A0 => PORTB: 0x02
-test "press once => PORTB: 0x02, next_state: 2"
-set next_state = LED_Start
-setPINA 0x00
-continue 1
-setPINA 0x01
-continue 1
-expectPORTB 0x02
-expect next_state 2
-checkResult
-
-# Test from init: !A0, A0, !A0, A0 => PORTB: 0x01
-test "press twice => PORTB: 0x01, next_state: 1"
-set next_state = LED_Start
-setPINA 0x00
-continue 1
-setPINA 0x01
-continue 1
-setPINA 0x00
-continue 1
-setPINA 0x01
-continue 1
-expectPORTB 0x01
-expect next_state 1
-checkResult
-
-test "press 5 times => PORTB: 0x02, next_state: 1"
-set next_state = LED_Start
-setPINA 0x00
-continue 1
-setPINA 0x01
-continue 1
-setPINA 0x00
-continue 1
-setPINA 0x01
-continue 1
-setPINA 0x00
-continue 1
-setPINA 0x01
-continue 1
-setPINA 0x00
-continue 1
-setPINA 0x01
-continue 1
-setPINA 0x00
-continue 1
-setPINA 0x01
-continue 1
-expectPORTB 0x02
-expect next_state 2
-checkResult
-
-test "press once, button let go => PORTB: 0x02, next_state: 1"
-set next_state = LED_Start
-setPINA 0x00
-continue 1
-setPINA 0x01
-continue 1
-setPINA 0x00
-continue 4
-expectPORTB 0x02
-expect next_state 2
-checkResult
-
 
 # Report on how many tests passed/tests ran
 set $passed=$tests-$failed
