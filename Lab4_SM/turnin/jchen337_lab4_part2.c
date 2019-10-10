@@ -23,15 +23,15 @@ void Tick() {
 		case Inc:
 		case Dec:
 		case Wait:
-			if (PINA & 0x01) {
+			if (PINA == 0x01) {
 				next_state = Inc;
 				break;
 			}
-			else if (PINA & 0x02) {
+			else if (PINA == 0x02) {
 				next_state = Dec;
 				break;
 			}
-			else if (PINA & 0x03) {
+			else if (PINA == 0x03) {
 				next_state = Reset;
 				break;
 			}
@@ -56,7 +56,7 @@ void Tick() {
 				break;
 			}
 			else {
-				PORTC = PORTC + 1;
+				PORTC = PORTC + 0x01;
 				next_state = Wait;
 				break;
 			}
@@ -67,7 +67,7 @@ void Tick() {
 				break;
 			}
 			else {
-				PORTC = PORTC - 1;
+				PORTC = PORTC - 0x01;
 				next_state = Wait;
 				break;
 			}

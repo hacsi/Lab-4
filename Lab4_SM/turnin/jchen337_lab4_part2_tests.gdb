@@ -26,17 +26,61 @@
 echo ======================================================\n
 echo Running all tests..."\n\n
 
-test "PINA: 0x01, 0x00 => PORTC: 0x08, next_state: 2"
+test "inc once => PORTC: 0x08"
 set next_state = Initial
 setPINA 0x01
-continue 1
-setPINA 0x00
-continue 3
+continue 2
 expectPORTC 0x08
-expect next_state 1
 checkResult
 
+test "hold inc => PORTC: 0x09"
+set next_state = Initial
+setPINA 0x01
+continue 5
+expectPORTC 0x09
+checkResult
 
+test "dec once => PORTC: 0x06"
+set next_state = Initial
+setPINA 0x02
+continue 2
+expectPORTC 0x06
+checkResult
+
+test "hold dec => PORTC: 0x00"
+set next_state = Initial
+setPINA 0x02
+continue 10
+expectPORTC 0x00
+checkResult
+
+test "inc, hold => PORTC: 0x08, state: Wait"
+set next_state = Initial
+setPINA 0x01
+continue 2
+setPINA 0x00
+continue 10
+expectPORTC 0x08
+expect next_state Wait
+checkResult
+
+test "dec, hold => PORTC: 0x06, state: Wait"
+set next_state = Initial
+setPINA 0x02
+continue 2
+setPINA 0x00
+continue 10
+expectPORTC 0x06
+expect next_state Wait
+checkResult
+
+test "press both => PORTC: 0x00"
+set next_state = Initial
+setPINA 0x03
+continue 3
+expectPORTC 0x00
+expect next_state Wait
+checkResult
 
 # Report on how many tests passed/tests ran
 set $passed=$tests-$failed
