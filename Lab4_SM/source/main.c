@@ -24,7 +24,7 @@ void Door_Tick() {
 				next_state = PPress;
 				break;
 			}
-			else if (PINA = 0x80) {
+			else if (PINA == 0x80) {
 				next_state = LockPress;
 				break;
 			}
@@ -130,6 +130,7 @@ int main(void) {
     /* Insert your solution below */
     while (1) {
 	Door_Tick();
+	PORTC = next_state;
     }
     return 1;
 }
