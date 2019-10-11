@@ -140,7 +140,7 @@ checkResult
 
 test "#YX => PORTB: 0x01 Unlocked, PORTC: 1. Wait"
 set next_state = Initial
-setPINA = 0x07
+setPINA 0x07
 continue 2
 expectPORTB 0x01
 expectPORTC 0X01
@@ -149,7 +149,7 @@ checkResult
 
 test "#Y => PORTB: 0x01 Unlocked, PORTC: 1. Wait"
 set next_state = Initial
-setPINA = 0x06
+setPINA 0x06
 continue 2
 expectPORTB 0x01
 expectPORTC 0X01
@@ -158,7 +158,7 @@ checkResult
 
 test "#X => PORTB: 0x01 Unlocked, PORTC: 1. Wait"
 set next_state = Initial
-setPINA = 0x05
+setPINA 0x05
 continue 2
 expectPORTB 0x01
 expectPORTC 0X01
@@ -167,7 +167,7 @@ checkResult
 
 test "YX => PORTB: 0x00 Locked, PORTC: 1. Wait"
 set next_state = Initial
-setPINA = 0x03
+setPINA 0x03
 continue 2
 expectPORTB 0x01
 expectPORTC 0X01
