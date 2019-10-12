@@ -45,51 +45,7 @@ expectPORTB 0x00
 expectPORTC 0x01
 checkResult
 
-test "#, Y => PORTB: 0x00 Locked, PORTC 1. Wait"
-set next_state = Initial
-setPINA 0x04
-continue 2
-setPINA 0x00
-continue 2
-#pound
-setPINA 0x02
-continue 2
-setPINA 0x00
-continue 2
-#y
-expectPORTB 0x00
-expectPORTC 0x01
-expect next_state Wait
-checkResult
-
-test "#, Y, #, Y => PORTB: 0x01 Unlocked, PORTC 1. Wait"
-set next_state = Initial
-setPINA 0x04
-continue 2
-setPINA 0x00
-continue 2
-#pound
-setPINA 0x02
-continue 2
-setPINA 0x00
-continue 2
-#y
-setPINA 0x04
-continue 2
-setPINA 0x00
-continue 2
-#pound
-setPINA 0x02
-continue 2
-setPINA 0x00
-continue 2
-#y
-expectPORTB 0x01
-expectPORTC 0x01
-expect next_state Wait
-checkResult
-
-test "lock, #, Y => PORTB: 0x01 Unlocked, PORTC: 1. Wait"
+test "lock, #, Y => PORTB: 0x01 Unlocked , PORTC: 1. Wait"
 set next_state = Initial
 setPINA 0x80
 continue 2

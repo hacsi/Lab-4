@@ -1,7 +1,7 @@
-Breakpoint 1 at 0x2f6: file source/main.c, line 131.
+Breakpoint 1 at 0x2f0: file source/main.c, line 131.
 Note: automatically using hardware breakpoints for read-only addresses.
 ======================================================
 Running all tests..."
 
-"press nothing => PORTB: 0x01 Unlocked, PORTC: 1. Wait"..."lock => PORTB: 0x00 Locked, PORTC: 1. Wait"..."#, Y => PORTB: 0x00 Locked, PORTC 1. Wait"..."#, Y, #, Y => PORTB: 0x01 Unlocked, PORTC 1. Wait"..."lock, #, Y => PORTB: 0x01 Unlocked , PORTC: 1. Wait"..."lock, #, X => PORTB: 0x00 Locked, PORTC: 1. Wait"..."lock, #, # => PORTB: 0x00 Locked, PORTC: 1. Wait"..."lock, Y => PORTB: 0x00 Locked, PORTC: 1. Wait"..."lock, X => PORTB: 0x00 Locked, PORTC: 1. Wait"..."#YX => PORTB: 0x01 Unlocked, PORTC: 1. Wait"..."#Y => PORTB: 0x01 Unlocked, PORTC: 1. Wait"..."#X => PORTB: 0x01 Unlocked, PORTC: 1. Wait"..."YX => PORTB: 0x00 Locked, PORTC: 1. Wait"...======================================================
+"press nothing => PORTB: 0x01 Unlocked, PORTC: 1. Wait"..."lock => PORTB: 0x00 Locked, PORTC: 1. Wait"..."lock, #, Y => PORTB: 0x01 Unlocked , PORTC: 1. Wait"..."lock, #, X => PORTB: 0x00 Locked, PORTC: 1. Wait"..."lock, #, # => PORTB: 0x00 Locked, PORTC: 1. Wait"..."lock, Y => PORTB: 0x00 Locked, PORTC: 1. Wait"..."lock, X => PORTB: 0x00 Locked, PORTC: 1. Wait"..."#YX => PORTB: 0x01 Unlocked, PORTC: 1. Wait"..."#Y => PORTB: 0x01 Unlocked, PORTC: 1. Wait"..."#X => PORTB: 0x01 Unlocked, PORTC: 1. Wait"..."YX => PORTB: 0x00 Locked, PORTC: 1. Wait"...======================================================
 Quitting: Remote doesn't know how to detach
